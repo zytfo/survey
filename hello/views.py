@@ -9,15 +9,12 @@ import os
 import psycopg2
 import urlparse
 
-urlparse.uses_netloc.append("postgres")
-url = urlparse.urlparse(os.environ["DATABASE_URL"])
-
 conn = psycopg2.connect(
-    database=url.path[1:],
-    user=url.username,
-    password=url.password,
-    host=url.hostname,
-    port=url.port
+    database="dcrer4f7hatr58",
+    user="wngxswjyulxtwx",
+    password="2b09bd90d6261888f0415ca2b3ae8eb11df089812f5354934e4ca696d31036c2",
+    host="ec2-79-125-13-42.eu-west-1.compute.amazonaws.com",
+    port="5432"
 )
 
 # Create your views here.
