@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="text-center">
+ 	<div class="container">
+    	<h1>Survey</h1>
+  	</div>
+</div>
+<div class="container">
+	<form action="" name="survey_form" method="POST">
+		<div class="form-group">
+			<p>Question 1: </p>
+			<div class="form-control">
+				<input type="radio" value="a1" name="q1">Answer 1
+				<input type="radio" value="a2" name="q1">Answer 2
+				<input type="radio" value="a3" name="q1">Answer 3
+				<input type="radio" value="a4" name="q1">Answer 4
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="form-control">
+			<p>Question 2: </p>
+				<input type="checkbox" value="a1" name="q2">Answer 1
+				<input type="checkbox" value="a2" name="q2">Answer 2
+				<input type="checkbox" value="a3" name="q2">Answer 3
+				<input type="checkbox" value="a4" name="q2">Answer 4
+			</div>
+		</div>	
+		<div class="form-group">
+			<p>Question 3: </p>
+			<div class="form-control">
+				<input type="number" name="q3" min="0" max="115"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<p>Question 4: </p>
+			<input type="textarea" name="q4"/>
+		</div>
+		<div class="form-group">
+			<p>Question 5: </p>
+			<input type="checkbox" value="a1" name="q5">Answer 1
+			<input type="checkbox" value="a2" name="q5">Answer 2
+			<input type="checkbox" value="a3" name="q5">Answer 3
+			<input type="checkbox" value="a4" name="q5">Answer 4
+		</div>	
+		<div class="form-group">
+   		 	<div class="col-sm-offset-2 col-sm-10">
+      		<button type="submit" class="btn btn-default">Submit</button>
+    		</div>
+ 	 	</div>
+	</form>
+</div>
+
+{% endblock %}

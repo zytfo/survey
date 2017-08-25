@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <a href="/" class="lang-logo">
+      <img src="{% static 'lang-logo.png'%}">
+    </a>
+    <h1>Online-Survey for App</h1>
+    <p>Hello, please click the button in order to proceed to survey</p>
+    <a type="button" class="btn btn-lg btn-default" href="/survey"><span class="glyphicon glyphicon-th-list"></span> Go to Survey</a>
+  </div>
+</div>
+{% endblock %}
