@@ -5,6 +5,21 @@ from .models import Greeting
 
 from .forms import PostForm
 
+import os
+import psycopg2
+import urlparse
+
+urlparse.uses_netloc.append("postgres")
+url = urlparse.urlparse(os.environ["DATABASE_URL"])
+
+conn = psycopg2.connect(
+    database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port
+)
+
 # Create your views here.
 def index(request):
     # return HttpResponse('Hello from Python!')
@@ -32,10 +47,12 @@ def post_form_upload(request):
         if form.is_valid():
             content = form.cleaned_data['content']
             created_at = form.cleaned_data['created_at']
-            post = m.Post.objects.create(content=content,
-                                         created_at=created_at)
+            cursor = conn.cursor()
+			cursor.execute("INSERT INTO question_5 VALUES ('?');", (content))
+            # post = m.Post.objects.create(content=content,
+            #                             created_at=created_at)
             return HttpResponseRedirect(reverse('post_detail',
-                                                kwargs={'post_id': post.id}))
+                                                kwargs={'post_id': 4}))
  
     return render(request, 'post_form.html', {
         'form': form,
