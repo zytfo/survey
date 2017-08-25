@@ -1,1 +1,1 @@
-web: java -jar target/java-getting-started-1.0.jar
+web: vendor/bin/heroku-php-apache2 web/
