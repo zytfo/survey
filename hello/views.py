@@ -37,7 +37,7 @@ def post_form_upload(request):
             return HttpResponseRedirect(reverse('post_detail',
                                                 kwargs={'post_id': post.id}))
  
-    return render(request, 'post/post_form_upload.html', {
+    return render(request, 'post/form_upload.html', {
         'form': form,
     })
 
