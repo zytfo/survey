@@ -14,4 +14,6 @@ urlpatterns = [
     url(r'^db', hello.views.db, name='db'),
     url(r'^survey', hello.views.survey, name='survey'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^post/form_upload.html$',
+        'myblog.views.post_form_upload', name='post_form_upload'),
 ]
