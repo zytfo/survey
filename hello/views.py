@@ -8,14 +8,6 @@ from .forms import PostForm
 import os
 import psycopg2
 
-conn = psycopg2.connect(
-    database="dcrer4f7hatr58",
-    user="wngxswjyulxtwx",
-    password="2b09bd90d6261888f0415ca2b3ae8eb11df089812f5354934e4ca696d31036c2",
-    host="ec2-79-125-13-42.eu-west-1.compute.amazonaws.com",
-    port="5432"
-)
-
 # Create your views here.
 def index(request):
     # return HttpResponse('Hello from Python!')
@@ -43,8 +35,16 @@ def post_form_upload(request):
         if form.is_valid():
             content = form.cleaned_data['content']
             created_at = form.cleaned_data['created_at']
+            conn = psycopg2.connect(
+                database="dcrer4f7hatr58",
+                user="wngxswjyulxtwx",
+                password="2b09bd90d6261888f0415ca2b3ae8eb11df089812f5354934e4ca696d31036c2",
+                host="ec2-79-125-13-42.eu-west-1.compute.amazonaws.com",
+                port="5432"
+            )
             cursor = conn.cursor()
-            cursor.execute("INSERT INTO question_5 VALUES ('?');", (content))
+            cursor.execute("INSERT INTO question_5 VALUES (?);", (content))
+            conn.close()
             # post = m.Post.objects.create(content=content,
             #                             created_at=created_at)
             return HttpResponseRedirect(reverse('post_detail',
