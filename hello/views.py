@@ -43,7 +43,7 @@ def post_form_upload(request):
                 port="5432"
             )
             cursor = conn.cursor()
-            cursor.execute("INSERT INTO question_5 VALUES (?);", (content))
+            cursor.execute('INSERT INTO question_5(text) VALUES (?)', (content))
             conn.close()
             # post = m.Post.objects.create(content=content,
             #                             created_at=created_at)
