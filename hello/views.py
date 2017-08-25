@@ -48,7 +48,7 @@ def post_form_upload(request):
             content = form.cleaned_data['content']
             created_at = form.cleaned_data['created_at']
             cursor = conn.cursor()
-		    cursor.execute("INSERT INTO question_5 VALUES ('?');", (content))
+            cursor.execute("INSERT INTO question_5 VALUES ('?');", (content))
             # post = m.Post.objects.create(content=content,
             #                             created_at=created_at)
             return HttpResponseRedirect(reverse('post_detail',
