@@ -7,7 +7,6 @@ from .forms import PostForm
 
 import os
 import psycopg2
-import urlparse
 
 conn = psycopg2.connect(
     database="dcrer4f7hatr58",
