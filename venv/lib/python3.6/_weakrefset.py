@@ -1,1 +1,1 @@
-/home/borisqa/anaconda3/lib/python3.6/_weakrefset.py
+/Users/ilyaborovik/anaconda/lib/python3.6/_weakrefset.py

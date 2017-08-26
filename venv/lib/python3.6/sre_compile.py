@@ -1,1 +1,1 @@
-/home/borisqa/anaconda3/lib/python3.6/sre_compile.py
+/Users/ilyaborovik/anaconda/lib/python3.6/sre_compile.py

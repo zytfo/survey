@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'gettingstarted.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'myproject',
-        'USER': 'myprojectuser',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': 'dcrer4f7hatr58',
+        'USER': 'wngxswjyulxtwx',
+        'PASSWORD': '2b09bd90d6261888f0415ca2b3ae8eb11df089812f5354934e4ca696d31036c2',
+        'HOST': 'ec2-79-125-13-42.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
     }
 }
 

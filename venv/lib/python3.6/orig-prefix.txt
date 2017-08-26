@@ -1,1 +1,1 @@
-/home/borisqa/anaconda3
+/Users/ilyaborovik/anaconda

@@ -1,1 +1,1 @@
-/home/borisqa/anaconda3/lib/python3.6/hmac.py
+/Users/ilyaborovik/anaconda/lib/python3.6/hmac.py
