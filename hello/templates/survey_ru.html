@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-
 {% block content %}
+<html>
+ <head>
 <form class="form-horizontal" action='survey_ru.html' method='POST'>{% csrf_token %}
+ </head>
 <fieldset>
 
 <!-- Form Name -->
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <div class="text-center">
  	<div class="container">
     	<h1>Survey</h1>
@@ -93,7 +95,7 @@
       <div class="text-center">
       	<div class="form-group">
          		 	<div class="col-sm-offset-2 col-sm-10">
-            		<button type="submit" class="btn btn-default">Submit</button>
+            		<button type="submit" class="btn btn-default">Отправить</button>
           		</div>
        	 </div>
       </div>
@@ -101,7 +103,7 @@
       </form>
     </form>
 </div>
-
+</html>
 
 
 {% endblock %}

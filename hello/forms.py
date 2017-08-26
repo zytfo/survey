@@ -39,13 +39,13 @@ class SurveyForm(forms.Form):
 
 class SurveyFormRu(forms.Form):
     OPTIONS1 = (('0','Симуляторы'),
-               ('1','Adventure'),
-               ('2','Open world'),
-               ('3','Platform'),
-               ('4','Sports'),
-               ('5','Racing'),
-               ('6','Strategy'),
-               ('7','Shooter'),)
+               ('1','Приключенческие'),
+               ('2','Открытый мир'),
+               ('3','Платформеры'),
+               ('4','Спортивные'),
+               ('5','Гонки'),
+               ('6','Стратегии'),
+               ('7','Шутеры'),)
     question1 = forms.MultipleChoiceField(choices=OPTIONS1, widget=forms.CheckboxSelectMultiple())
 
     OPTIONS2 = (('1','1'),
@@ -60,9 +60,9 @@ class SurveyFormRu(forms.Form):
                ('10','10'),)
     question2 = forms.ChoiceField(choices=OPTIONS2, widget=forms.Select(attrs={'class': 'form-control', 'id': 'selectbasic', 'name': 'selectbasic'}))
 
-    OPTIONS3 = (('1','Yes'),
-               ('2','No'),
-               ('3',"I'm not sure"),)
+    OPTIONS3 = (('1','Да'),
+               ('2','Нет'),
+               ('3',"Я не уверен"),)
     question3 = forms.ChoiceField(required=True, choices=OPTIONS3, widget=forms.RadioSelect(), initial='1')
 
     OPTIONS4 = (('1','<20'),
