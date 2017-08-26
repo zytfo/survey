@@ -39,7 +39,7 @@ def survey(request):
             db.insert_answers(db.get_next_id(), question1, question2, question3, question4, question5)
             db.close()
             # return render(request, 'index.html')
-            return HttpResponseRedirect('/thanks/')
+            return HttpResponseRedirect('/en/thanks/')
  
     return render(request, 'survey.html', {
         'form': form}, RequestContext(request))
@@ -62,7 +62,7 @@ def survey_ru(request):
             db.insert_answers(db.get_next_id(), question1, question2, question3, question4, question5)
             db.close()
             # return render(request, 'index.html')
-            return HttpResponseRedirect('/thanks_ru/')
+            return HttpResponseRedirect('/ru/thanks/')
  
     return render(request, 'survey_ru.html', {
         'form': form}, RequestContext(request))
