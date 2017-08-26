@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<form class="form-horizontal" action='survey_ru.html' method='POST'>{% csrf_token %}
+<fieldset>
+
+<!-- Form Name -->
+
+<div class="text-center">
+ 	<div class="container">
+    	<h1>Survey</h1>
+  	</div>
+</div>
+
+<!-- Multiple Checkboxes -->
+<div class="container">
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="checkboxes">1. Какие жанры компьютерных игр Вы предпочитаете?</label>
+        <div class="col-md-4">
+        {{ form.question1.errors }}
+        <div class="checkbox">
+          {{ form.question1.0 }}
+      	</div>
+        <div class="checkbox">
+          {{ form.question1.1 }}
+      	</div>
+        <div class="checkbox">
+          {{ form.question1.2 }}
+      	</div>
+        <div class="checkbox">
+          {{ form.question1.3 }}
+      	</div>
+        <div class="checkbox">
+          {{ form.question1.4 }}
+      	</div>
+        <div class="checkbox">
+          {{ form.question1.5 }}
+      	</div>
+      	<div class="checkbox">
+          {{ form.question1.6 }}
+      	</div>
+      	<div class="checkbox">
+          {{ form.question1.7 }}
+      	</div>
+        </div>
+      </div>
+
+      <!-- Select Basic -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="selectbasic">2. Насколько важны компьютерные игры в Вашей жизни? (оцените от 1 до 10)</label>
+        <div class="col-md-4">
+          {{ form.question2.errors }}
+          {{ form.question2 }}
+        </div>
+      </div>
+
+      <!-- Multiple Radios (inline) -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="radios">3. Слышали ли Вы когда-нибудь об игре "The Information Man"?</label>
+        <div class="col-md-4"> 
+          {% for radio in form.question3 %}
+    	    <label for="{{ radio.id_for_label }}" class="radio-inline">
+    	      {{ radio.tag }}
+        	  {{ radio.choice_label }}
+    		</label>
+		  {% endfor %}
+        </div>
+      </div>
+
+      <!-- Multiple Radios -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="radios_age">4. Сколько Вам лет?</label>
+        <div class="col-md-4">
+          {% for radio in form.question4 %}
+            <div class="radio">
+    	    <label for="{{ radio.id_for_label }}" class="radio-inline">
+    	      {{ radio.tag }}
+        	  {{ radio.choice_label }}
+    		</label>
+    		</div>
+		  {% endfor %}
+        </div>
+      </div>
+
+      <!-- Textarea -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="textarea">5. Какой сюжет Вы хотели бы увидеть в компьютерной игре? (как минимум 256 символов)</label>
+        <div class="col-md-4">                     
+          {{ form.question5 }}
+        </div>
+      </div>
+      <div class="text-center">
+      	<div class="form-group">
+         		 	<div class="col-sm-offset-2 col-sm-10">
+            		<button type="submit" class="btn btn-default">Submit</button>
+          		</div>
+       	 </div>
+      </div>
+      </fieldset>
+      </form>
+    </form>
+</div>
+
+
+
+{% endblock %}
