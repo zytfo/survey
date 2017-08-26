@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="text-center">
+ 	<div class="container">
+    	<h1>Survey</h1>
+      <p>{{ results.question1 }}</p>
+      <p>{{ results.question2 }}</p>
+      <p>{{ results.question3 }}</p>
+      <p>{{ results.question4 }}</p>
+      <p>{{ results.question5 }}</p>
+  	</div>
+</div>
+
+{% endblock %}

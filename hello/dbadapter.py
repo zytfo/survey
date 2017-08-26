@@ -37,16 +37,16 @@ class DBAdapter:
         ''' Получаем данные опроса '''
         with self.connection:
             self.cursor.execute('SELECT * FROM question_1 ORDER BY survey_id')
-            question_1 = self.cursor.fetchall()
+            question1 = self.cursor.fetchall()
             self.cursor.execute('SELECT * FROM question_2 ORDER BY survey_id')
-            question_2 = self.cursor.fetchall()
+            question2 = self.cursor.fetchall()
             self.cursor.execute('SELECT * FROM question_3 ORDER BY survey_id')
-            question_3 = self.cursor.fetchall()
+            question3 = self.cursor.fetchall()
             self.cursor.execute('SELECT * FROM question_4 ORDER BY survey_id')
-            question_4 = self.cursor.fetchall()
+            question4 = self.cursor.fetchall()
             self.cursor.execute('SELECT * FROM question_5 ORDER BY survey_id')
-            question_5 = self.cursor.fetchall()
-            return [question1, question_2, question_3, question_4, question_5]
+            question5 = self.cursor.fetchall()
+            return { 'question1': question1, 'question2': question2, 'question3': question3, 'question4': question4, 'question5': question5 }
 
     def get_datetime(self):
         with self.connection:
