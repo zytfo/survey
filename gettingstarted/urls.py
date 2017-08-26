@@ -14,6 +14,5 @@ urlpatterns = [
     url(r'^db', hello.views.db, name='db'),
     url(r'^survey', hello.views.survey, name='survey'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^post_form.html$',
-        hello.views.post_form_upload, name='post_form_upload'),
+    url(r'^thanks', hello.views.thanks, name='thanks'),
 ]

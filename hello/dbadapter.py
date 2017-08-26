@@ -13,16 +13,25 @@ class DBAdapter:
             )
         self.cursor = self.connection.cursor()
 
-    def count_rows(self):
-        """ Считаем количество строк """
+    def get_next_id(self):
+        """ Находим id следующего опроса """
         with self.connection:
-            result = self.cursor.execute('SELECT * FROM question_1').fetchall()
-            return len(result)
+            self.cursor.execute('SELECT max(survey_id) FROM question_5')
+            result = self.cursor.fetchone()[0]
+            return 1 if result == None else result + 1
 
     def insert_answers(self, survey_id, *answers):
         """ Добавляем ответы в бд """
         with self.connection:
-            self.cursor.execute('INSERT INTO question_5(survey_id, text) VALUES(%s, %s)', (survey_id, answers[0]))
+            question1 = [False, False, False, False, False, False]
+            for i in answers[0]:
+                question1[int(i)] = True;
+            self.cursor.execute('INSERT INTO question_1(survey_id, choice_1, choice_2, choice_3, choice_4, choice_5, choice_6)'
+                ' VALUES(%s, %s, %s, %s, %s, %s, %s)', (survey_id, *question1))
+            self.cursor.execute('INSERT INTO question_2(survey_id, level) VALUES(%s, %s)', (survey_id, answers[1]))
+            self.cursor.execute('INSERT INTO question_3(survey_id, choice_id) VALUES(%s, %s)', (survey_id, answers[2]))
+            self.cursor.execute('INSERT INTO question_4(survey_id, choice_id) VALUES(%s, %s)', (survey_id, answers[3]))
+            self.cursor.execute('INSERT INTO question_5(survey_id, text) VALUES(%s, %s)', (survey_id, answers[4]))
 
     def get_datetime(self):
         with self.connection:
