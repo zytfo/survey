@@ -1,12 +1,14 @@
 from django import forms
 
 class SurveyForm(forms.Form):
-    OPTIONS1 = (('0','Eurasia'),
-               ('1','Africa'),
-               ('2','North America'),
-               ('3','South America'),
-               ('4','Australia'),
-               ('5','Antarctica'),)
+    OPTIONS1 = (('0','Simulator'),
+               ('1','Adventure'),
+               ('2','Open world'),
+               ('3','Platform'),
+               ('4','Sports'),
+               ('5','Racing'),
+               ('6','Strategy'),
+               ('7','Shooter'),)
     question1 = forms.MultipleChoiceField(choices=OPTIONS1, widget=forms.CheckboxSelectMultiple())
     OPTIONS2 = (('1','1'),
                ('2','2'),
@@ -21,7 +23,7 @@ class SurveyForm(forms.Form):
     question2 = forms.ChoiceField(choices=OPTIONS2, widget=forms.Select(attrs={'class': 'form-control', 'id': 'selectbasic', 'name': 'selectbasic'}))
     OPTIONS3 = (('1','Yes'),
                ('2','No'),
-               ('3',"I'm not sure if it was a PaaS service"),)
+               ('3',"I'm not sure"),)
     question3 = forms.ChoiceField(required=True, choices=OPTIONS3, widget=forms.RadioSelect(), initial='1')
     OPTIONS4 = (('1','<20'),
                ('2','21-30'),
