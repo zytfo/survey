@@ -71,14 +71,16 @@ def survey_ru(request):
     return render(request, 'survey_ru.html', {
         'form': form}, RequestContext(request))
 
-@login_required(login_url='/login/')
 def results(request):
-    db = DBAdapter()
-    results = db.get_results()
-    db.close()
- 
-    return render(request, 'results.html', {
-        'results': results})
+    if request.user.is_authenticated:
+        db = DBAdapter()
+        results = db.get_results()
+        db.close()
+     
+        return render(request, 'results.html', {
+            'results': results})
+    else:
+        return HttpResponseRedirect('/login/')
 
 def db(request):
 
