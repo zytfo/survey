@@ -74,18 +74,6 @@ def results(request):
         db = DBAdapter()
         results = db.get_results()
         db.close()
-
-	    # for i in range(len(results['question1'])):
-	    # 	responses[i + 1] = {}
-	    # 	responses[i + 1]['q1'] = results['question1'][i][1:]
-	    # 	responses[i + 1]['q2'] = results['question2'][i][1]
-	    # 	responses[i + 1]['q3'] = results['question3'][i][1]
-	    # 	responses[i + 1]['q4'] = results['question4'][i][1]
-	    # 	responses[i + 1]['q5'] = results['question5'][i][1]
-
-	    # response = ResponseEn()
-	    # response.save()
-	    # responses.append(response)
         
         responses = []
         for i in range(len(results['question1'])):
@@ -95,7 +83,7 @@ def results(request):
                 if results['question1'][i][j + 1]:
                     if not q1 == "":
                         q1 += ", "
-                    q1 += SurveyForm.OPTIONS1[j + 1][1]
+                    q1 += SurveyForm.OPTIONS1[j][1]
             response['q1'] = q1
             response['q2'] = results['question2'][i][1]
             response['q3'] = SurveyForm.OPTIONS3[results['question3'][i][1]][1]
