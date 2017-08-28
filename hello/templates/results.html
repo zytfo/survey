@@ -3,14 +3,17 @@
 
 {% block content %}
 <div class="text-center">
- 	<div class="container">
-    	<h1>Survey</h1>
-      <p>{{ results.question1 }}</p>
-      <p>{{ results.question2 }}</p>
-      <p>{{ results.question3 }}</p>
-      <p>{{ results.question4 }}</p>
-      <p>{{ results.question5 }}</p>
-  	</div>
+  <div class="container">
+      <h1>Survey</h1>
+      {% for r in responses %}
+        <h3> Response {{ r.id }} </h3>
+        <p> Question 1: {{ r.q1 }} </p>
+        <p> Question 2: {{ r.q2 }} </p>
+        <p> Question 3: {{ r.q3 }} </p>
+        <p> Question 4: {{ r.q4 }} </p>
+        <p> Question 5: {{ r.q5 }} </p>
+      {% endfor %}
+    </div>
 </div>
 
 {% endblock %}
