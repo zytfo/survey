@@ -1,5 +1,5 @@
 from django.conf.urls import include, url
-
+from django.contrib.auth import views as auth_views
 from django.contrib import admin
 admin.autodiscover()
 
@@ -18,4 +18,7 @@ urlpatterns = [
     url(r'^en/thanks', hello.views.thanks, name='thanks'),
     url(r'^ru/thanks', hello.views.thanks_ru, name='thanks_ru'),
     url(r'^en/results', hello.views.results, name='results'),
+    url(r'^login/$', auth_views.LoginView.as_view()),
+    url(r'^auth/', hello.views.auth, name='auth')
+ #   url(r'^logout/$', 'django.contrib.auth.views.logout')
 ]
