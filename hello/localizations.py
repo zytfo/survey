@@ -1,5 +1,6 @@
 class Localization:
     strings_en = {
+    	'survey_link': '/en/survey',
         'survey_name': 'Survey',
         'survey_questions': ("1. What genres of computer games do you prefer?",
     	         "2. How important are computer games in your life? (on a scale of 1-10)",
@@ -16,6 +17,7 @@ class Localization:
     }
 
     strings_ru = {
+    	'survey_link': '/ru/survey',
         'survey_name': 'Опрос',
         'survey_questions': ("1. Какие жанры компьютерных игр Вы предпочитаете?",
     	         "2. Насколько важны компьютерные игры в Вашей жизни? (оцените от 1 до 10)",

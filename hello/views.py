@@ -20,20 +20,26 @@ def index(request):
     # return HttpResponse('Hello from Python!')
     return render(request, 'index.html', {'locale': Localization.strings_en})
 
-def thanks(request):
-    return render(request, 'thanks.html',
-    	{'locale': Localization.strings_en})
+def thanks(request, locale):
+    if locale == 'en':
+        return render(request, 'thanks.html',
+    		{'locale': Localization.strings_en})
+    else:
+        return render(request, 'thanks.html',
+    		{'locale': Localization.strings_ru})
 
-def thanks_ru(request):
-    return render(request, 'thanks.html',
-    	{'locale': Localization.strings_ru})
-
-def survey(request):
+def survey(request, locale):
     if request.method == 'GET':
-        form = SurveyForm()
+        if locale == 'en':
+            form = SurveyForm()
+        else:
+            form = SurveyFormRu()
     else:
         # A POST request: Handle Form Upload
-        form = SurveyForm(request.POST) # Bind data from request.POST into a PostForm
+        if locale == 'en':
+            form = SurveyForm(request.POST)
+        else:
+            form = SurveyFormRu(request.POST)
  
         # If data is valid, proceeds to create a new post and redirect the user
         if form.is_valid():
@@ -45,38 +51,28 @@ def survey(request):
             db = DBAdapter()
             db.insert_answers(db.get_next_id(), question1, question2, question3, question4, question5)
             db.close()
-            return HttpResponseRedirect('/en/thanks/')
- 
-    return render(request, 'survey.html', {
-        'form': form, 'locale': Localization.strings_en}, RequestContext(request))
-
-def survey_ru(request):
-    if request.method == 'GET':
-        form = SurveyFormRu()
+            if locale == 'en':
+                return HttpResponseRedirect('/en/thanks/')
+            else:
+                return HttpResponseRedirect('/ru/thanks/')
+     
+    if locale == 'en':
+        return render(request, 'survey.html', {
+        	'form': form, 'locale': Localization.strings_en}, RequestContext(request))
     else:
-        # A POST request: Handle Form Upload
-        form = SurveyFormRu(request.POST) # Bind data from request.POST into a PostForm
- 
-        # If data is valid, proceeds to create a new post and redirect the user
-        if form.is_valid():
-            question1 = form.cleaned_data['question1']
-            question2 = form.cleaned_data['question2']
-            question3 = form.cleaned_data['question3']
-            question4 = form.cleaned_data['question4']
-            question5 = form.cleaned_data['question5']
-            db = DBAdapter()
-            db.insert_answers(db.get_next_id(), question1, question2, question3, question4, question5)
-            db.close()
-            return HttpResponseRedirect('/ru/thanks/')
- 
-    return render(request, 'survey.html', {
-        'form': form, 'locale': Localization.strings_ru}, RequestContext(request))
+        return render(request, 'survey.html', {
+        	'form': form, 'locale': Localization.strings_ru}, RequestContext(request))        
 
-def results(request):
+def results(request, locale):
     if request.user.is_authenticated:
         db = DBAdapter()
         results = db.get_results()
         db.close()
+
+        if locale == 'en':
+            form = SurveyForm()
+        else:
+            form = SurveyFormRu()
         
         responses = []
         for i in range(len(results['question1'])):
@@ -86,43 +82,20 @@ def results(request):
                 if results['question1'][i][j + 1]:
                     if not q1 == "":
                         q1 += ", "
-                    q1 += SurveyForm.OPTIONS1[j][1]
+                    q1 += form.OPTIONS1[j][1]
             response['q1'] = q1
             response['q2'] = results['question2'][i][1]
-            response['q3'] = SurveyForm.OPTIONS3[results['question3'][i][1]][1]
-            response['q4'] = SurveyForm.OPTIONS4[results['question4'][i][1]][1]
+            response['q3'] = form.OPTIONS3[results['question3'][i][1]][1]
+            response['q4'] = form.OPTIONS4[results['question4'][i][1]][1]
             response['q5'] = results['question5'][i][1]
             responses.append(response)
 
-        return render(request, 'results.html', {
-	        'results': results, 'responses': responses, 'locale': Localization.strings_en})
-    else:
-        return HttpResponseRedirect('/login/')
-
-def results_ru(request):
-    if request.user.is_authenticated:
-        db = DBAdapter()
-        results = db.get_results()
-        db.close()
-        
-        responses = []
-        for i in range(len(results['question1'])):
-            response = {'id': results['question1'][i][0]}
-            q1 = ''
-            for j in range(len(results['question1'][i][1:])):
-                if results['question1'][i][j + 1]:
-                    if not q1 == "":
-                        q1 += ", "
-                    q1 += SurveyFormRu.OPTIONS1[j][1]
-            response['q1'] = q1
-            response['q2'] = results['question2'][i][1]
-            response['q3'] = SurveyFormRu.OPTIONS3[results['question3'][i][1]][1]
-            response['q4'] = SurveyFormRu.OPTIONS4[results['question4'][i][1]][1]
-            response['q5'] = results['question5'][i][1]
-            responses.append(response)
-
-        return render(request, 'results.html', {
-	        'results': results, 'responses': responses, 'locale': Localization.strings_ru})
+        if locale == 'en':
+            return render(request, 'results.html', {
+        		'results': results, 'responses': responses, 'locale': Localization.strings_en})
+        else:
+            return render(request, 'results.html', {
+        		'results': results, 'responses': responses, 'locale': Localization.strings_ru})
     else:
         return HttpResponseRedirect('/login/')
 
