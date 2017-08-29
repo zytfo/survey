@@ -9,6 +9,7 @@ from django.shortcuts import render_to_response, redirect
 from .models import Greeting
 from .forms import SurveyForm, SurveyFormRu
 from .dbadapter import DBAdapter
+from .localizations import Localization
 
 import os
 import psycopg2
@@ -17,13 +18,15 @@ import sys
 # Create your views here.
 def index(request):
     # return HttpResponse('Hello from Python!')
-    return render(request, 'index.html')
+    return render(request, 'index.html', {'locale': Localization.strings_en})
 
 def thanks(request):
-    return render(request, 'thanks.html')
+    return render(request, 'thanks.html',
+    	{'locale': Localization.strings_en})
 
 def thanks_ru(request):
-    return render(request, 'thanks_ru.html')
+    return render(request, 'thanks.html',
+    	{'locale': Localization.strings_ru})
 
 def survey(request):
     if request.method == 'GET':
@@ -45,7 +48,7 @@ def survey(request):
             return HttpResponseRedirect('/en/thanks/')
  
     return render(request, 'survey.html', {
-        'form': form}, RequestContext(request))
+        'form': form, 'locale': Localization.strings_en}, RequestContext(request))
 
 def survey_ru(request):
     if request.method == 'GET':
@@ -66,8 +69,8 @@ def survey_ru(request):
             db.close()
             return HttpResponseRedirect('/ru/thanks/')
  
-    return render(request, 'survey_ru.html', {
-        'form': form}, RequestContext(request))
+    return render(request, 'survey.html', {
+        'form': form, 'locale': Localization.strings_ru}, RequestContext(request))
 
 def results(request):
     if request.user.is_authenticated:
@@ -91,10 +94,35 @@ def results(request):
             response['q5'] = results['question5'][i][1]
             responses.append(response)
 
-        # responses = [{'id': 1, 'question1': 'Sports', 'question2': 5}, {'id': 2}, {'id': 3}]
+        return render(request, 'results.html', {
+	        'results': results, 'responses': responses, 'locale': Localization.strings_en})
+    else:
+        return HttpResponseRedirect('/login/')
+
+def results_ru(request):
+    if request.user.is_authenticated:
+        db = DBAdapter()
+        results = db.get_results()
+        db.close()
+        
+        responses = []
+        for i in range(len(results['question1'])):
+            response = {'id': results['question1'][i][0]}
+            q1 = ''
+            for j in range(len(results['question1'][i][1:])):
+                if results['question1'][i][j + 1]:
+                    if not q1 == "":
+                        q1 += ", "
+                    q1 += SurveyFormRu.OPTIONS1[j][1]
+            response['q1'] = q1
+            response['q2'] = results['question2'][i][1]
+            response['q3'] = SurveyFormRu.OPTIONS3[results['question3'][i][1]][1]
+            response['q4'] = SurveyFormRu.OPTIONS4[results['question4'][i][1]][1]
+            response['q5'] = results['question5'][i][1]
+            responses.append(response)
 
         return render(request, 'results.html', {
-	        'results': results, 'responses': responses})
+	        'results': results, 'responses': responses, 'locale': Localization.strings_ru})
     else:
         return HttpResponseRedirect('/login/')
 

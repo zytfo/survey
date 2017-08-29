@@ -8,9 +8,9 @@
     <a href="/" class="lang-logo">
       <img src="{% static 'lang-logo.png'%}">
     </a>
-    <h1>Online-Survey for App</h1>
-    <p>Hello, please click the button in order to proceed to survey</p>
-    <a type="button" class="btn btn-lg btn-default" href="/en/survey"><span class="glyphicon glyphicon-th-list"></span> Go to Survey 🇬🇧</a>
+    <h1>{{ locale.index_header }}</h1>
+    <p>{{ locale.index_welcome_message }}</p>
+    <a type="button" class="btn btn-lg btn-default" href="/en/survey"><span class="glyphicon glyphicon-th-list"></span>{{ locale.survey_goto_message }}</a>
     <a type="button" class="btn btn-lg btn-default" href="/ru/survey"><span class="glyphicon glyphicon-th-list"></span> Перейти к опросу 🇷🇺</a>
   </div>
 </div>

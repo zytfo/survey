@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^en/thanks', hello.views.thanks, name='thanks'),
     url(r'^ru/thanks', hello.views.thanks_ru, name='thanks_ru'),
     url(r'^en/results', hello.views.results, name='results'),
+    url(r'^ru/results', hello.views.results_ru, name='results_ru'),
     url(r'^login/$', auth_views.LoginView.as_view()),
     url(r'^auth/', hello.views.auth, name='auth')
  #   url(r'^logout/$', 'django.contrib.auth.views.logout')

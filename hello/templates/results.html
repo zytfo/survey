@@ -4,14 +4,14 @@
 {% block content %}
 <div class="text-center">
   <div class="container">
-      <h1>Survey</h1>
+      <h1>{{ locale.survey_results }}</h1>
       {% for r in responses %}
-        <h3> Response {{ r.id }} </h3>
-        <p> Question 1: {{ r.q1 }} </p>
-        <p> Question 2: {{ r.q2 }} </p>
-        <p> Question 3: {{ r.q3 }} </p>
-        <p> Question 4: {{ r.q4 }} </p>
-        <p> Question 5: {{ r.q5 }} </p>
+        <h3> {{ locale.survey_results_response }} {{ r.id }} </h3>
+        <p> <b>{{ locale.survey_questions.0 }}</b> {{ r.q1 }} </p>
+        <p> <b>{{ locale.survey_questions.1 }}</b> {{ r.q2 }} </p>
+        <p> <b>{{ locale.survey_questions.2 }}</b> {{ r.q3 }} </p>
+        <p> <b>{{ locale.survey_questions.3 }}</b> {{ r.q4 }} </p>
+        <p> <b>{{ locale.survey_questions.4 }}</b> {{ r.q5 }} </p>
       {% endfor %}
     </div>
 </div>
