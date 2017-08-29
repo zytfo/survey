@@ -98,11 +98,9 @@ def results(request):
             responses.append(response)
 
         if request.session['lang'] == 'en':
-            return render(request, 'results.html', {
-        		'results': results, 'responses': responses, 'locale': Localization.strings_en})
+            return render(request, 'results.html', {'responses': responses, 'locale': Localization.strings_en})
         else:
-            return render(request, 'results.html', {
-        		'results': results, 'responses': responses, 'locale': Localization.strings_ru})
+            return render(request, 'results.html', {'responses': responses, 'locale': Localization.strings_ru})
     else:
         return HttpResponseRedirect('/login/')
 
@@ -125,7 +123,10 @@ def auth(request):
 def loginview(request):
     c = {}
     c.update(csrf(request))
-    return render_to_response('login.html', c)
+    if request.session['lang'] == 'en':
+        return render(request, 'login.html', c, {'locale': Localization.strings_en})
+    else:
+        return render(request, 'login.html', c, {'locale': Localization.strings_ru})
 
 def changelang(request):
     if request.session['lang'] == 'en':
