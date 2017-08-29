@@ -8,12 +8,14 @@ class Localization:
     	         "4. What's your age?",
     	         "5. What story would you like to see in a computer game? (at least 256 characters)"),
         'index_header': 'Online-Survey for App',
-        'index_welcome_message': 'Hello, please click the button in order to proceed to survey',
-        'survey_goto_message': ' Go to Survey 🇬🇧',
+        'index_welcome_message': 'Welcome to our website! Please, click the button in order to proceed to the survey',
+        'survey_goto_message': ' Go to Survey',
         'thanks_message': 'Thank you for taking part in our survey! If you want to retake the survey, click the button in order to proceed to it',
         'survey_retake_message': ' Retake the Survey',
         'survey_results': 'Survey results',
         'survey_results_response': 'Response',
+        'home_message': 'Home',
+        'lang_switch_message': 'Русский 🇷🇺',
     }
 
     strings_ru = {
@@ -25,10 +27,12 @@ class Localization:
     	         "4. Сколько Вам лет?",
     	         "5. Какой сюжет Вы хотели бы увидеть в компьютерной игре? (как минимум 256 символов)"),
         'index_header': 'Онлайн-опрос для приложения',
-        'index_welcome_message': 'Привет, пожалуйста, нажми на кнопку, чтобы перейти к опросу',
-        'survey_goto_message': ' Перейти к опросу 🇷🇺',
+        'index_welcome_message': 'Добро пожаловать на наш сайт! Пожалуйста, нажми на кнопку, чтобы перейти к опросу',
+        'survey_goto_message': ' Перейти к опросу',
         'thanks_message': 'Спасибо за прохождение нашего опроса! Нажмите на кнопку, если Вы хотите его перепройти.',
         'survey_retake_message': ' Перепройти опрос',
         'survey_results': 'Результаты опроса',
         'survey_results_response': 'Ответ',
+        'home_message': 'Домой',
+        'lang_switch_message': 'English 🇬🇧'
     }

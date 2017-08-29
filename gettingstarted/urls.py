@@ -12,14 +12,12 @@ import hello.views
 urlpatterns = [
     url(r'^$', hello.views.index, name='index'),
     url(r'^db', hello.views.db, name='db'),
-    url(r'^en/survey', hello.views.survey, {'locale': 'en'}, name='survey'),
-    url(r'^ru/survey', hello.views.survey, {'locale': 'ru'}, name='survey_ru'),
+    url(r'^survey', hello.views.survey, name='survey'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^en/thanks', hello.views.thanks, {'locale': 'en'}, name='thanks'),
-    url(r'^ru/thanks', hello.views.thanks, {'locale': 'ru'}, name='thanks_ru'),
-    url(r'^en/results', hello.views.results, {'locale': 'en'}, name='results'),
-    url(r'^ru/results', hello.views.results, {'locale': 'ru'}, name='results_ru'),
+    url(r'^thanks', hello.views.thanks, name='thanks'),
+    url(r'^results', hello.views.results, name='results'),
     url(r'^login/$', auth_views.LoginView.as_view()),
-    url(r'^auth/', hello.views.auth, name='auth')
+    url(r'^auth/', hello.views.auth, name='auth'),
+    url(r'^changelang/', hello.views.changelang, name='auth')
  #   url(r'^logout/$', 'django.contrib.auth.views.logout')
 ]

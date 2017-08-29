@@ -18,25 +18,32 @@ import sys
 # Create your views here.
 def index(request):
     # return HttpResponse('Hello from Python!')
-    return render(request, 'index.html', {'locale': Localization.strings_en})
+    if not 'lang' in request.session:
+        request.session['lang'] = 'en'
+    if request.session['lang'] == 'en':
+        return render(request, 'index.html',
+    		{'locale': Localization.strings_en})
+    else:
+        return render(request, 'index.html',
+    		{'locale': Localization.strings_ru})
 
-def thanks(request, locale):
-    if locale == 'en':
+def thanks(request):
+    if request.session['lang'] == 'en':
         return render(request, 'thanks.html',
     		{'locale': Localization.strings_en})
     else:
         return render(request, 'thanks.html',
     		{'locale': Localization.strings_ru})
 
-def survey(request, locale):
+def survey(request):
     if request.method == 'GET':
-        if locale == 'en':
+        if request.session['lang'] == 'en':
             form = SurveyForm()
         else:
             form = SurveyFormRu()
     else:
         # A POST request: Handle Form Upload
-        if locale == 'en':
+        if request.session['lang'] == 'en':
             form = SurveyForm(request.POST)
         else:
             form = SurveyFormRu(request.POST)
@@ -51,25 +58,25 @@ def survey(request, locale):
             db = DBAdapter()
             db.insert_answers(db.get_next_id(), question1, question2, question3, question4, question5)
             db.close()
-            if locale == 'en':
-                return HttpResponseRedirect('/en/thanks/')
+            if request.session['lang'] == 'en':
+                return HttpResponseRedirect('/thanks/')
             else:
-                return HttpResponseRedirect('/ru/thanks/')
+                return HttpResponseRedirect('/thanks/')
      
-    if locale == 'en':
+    if request.session['lang'] == 'en':
         return render(request, 'survey.html', {
         	'form': form, 'locale': Localization.strings_en}, RequestContext(request))
     else:
         return render(request, 'survey.html', {
         	'form': form, 'locale': Localization.strings_ru}, RequestContext(request))        
 
-def results(request, locale):
+def results(request):
     if request.user.is_authenticated:
         db = DBAdapter()
         results = db.get_results()
         db.close()
 
-        if locale == 'en':
+        if request.session['lang'] == 'en':
             form = SurveyForm()
         else:
             form = SurveyFormRu()
@@ -90,7 +97,7 @@ def results(request, locale):
             response['q5'] = results['question5'][i][1]
             responses.append(response)
 
-        if locale == 'en':
+        if request.session['lang'] == 'en':
             return render(request, 'results.html', {
         		'results': results, 'responses': responses, 'locale': Localization.strings_en})
         else:
@@ -100,7 +107,6 @@ def results(request, locale):
         return HttpResponseRedirect('/login/')
 
 def db(request):
-
     greeting = Greeting()
     greeting.save()
 
@@ -112,7 +118,7 @@ def auth(request):
     user = authenticate(username=request.POST['username'], password=request.POST['password'])
     if user is not None:
         login(request, user)
-        return HttpResponseRedirect('/en/results/')
+        return HttpResponseRedirect('/results/')
     else: 
         return HttpResponseRedirect('/login/')
 
@@ -120,5 +126,13 @@ def loginview(request):
     c = {}
     c.update(csrf(request))
     return render_to_response('login.html', c)
+
+def changelang(request):
+    if request.session['lang'] == 'en':
+        request.session['lang'] = 'ru'
+        return HttpResponseRedirect(request.GET.get('url'))
+    else: 
+        request.session['lang'] = 'en'
+        return HttpResponseRedirect(request.GET.get('url'))
 
 
