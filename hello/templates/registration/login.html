@@ -3,9 +3,6 @@
 
 {% block content %}
 
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
 <div class="text-center">
 	<div class="container padding-left:5%">
 	    	<h2>Login</h2>
@@ -32,6 +29,17 @@
 				    <div class="form-group">
 				    	<button class="btn btn-def btn-block" type="submit" name="submit" value="submit-value">Login</button>
 				    </div>
+				    {% if form.non_field_errors %}
+					     <div class="alert alert-danger">
+					        {% for error in form.non_field_errors %}
+					        <strong> Warning! </strong> {{ error }}
+					        {% endfor %}
+					    </div>
+					{% endif %}				   
 			</form>
+		</div>
+		</div>
+	</div>
+</div>
 
 {% endblock %}

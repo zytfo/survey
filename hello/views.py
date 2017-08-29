@@ -3,11 +3,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 from django.template.context_processors import csrf
 from django.shortcuts import render_to_response, redirect
 from .models import Greeting
-from .forms import SurveyForm, SurveyFormRu
+from .forms import SurveyForm, SurveyFormRu, LoginForm
 from .dbadapter import DBAdapter
 from .localizations import Localization
 
@@ -113,12 +113,13 @@ def db(request):
     return render(request, 'db.html', {'greetings': greetings})
 
 def auth(request):
-    user = authenticate(username=request.POST['username'], password=request.POST['password'])
-    if user is not None:
-        login(request, user)
-        return HttpResponseRedirect('/results/')
-    else: 
-        return HttpResponseRedirect('/login/')
+    form = LoginForm(request.POST or None)
+    if request.POST and form.is_valid():
+        user = form.login(request)
+        if user:
+            login(request, user)
+            return HttpResponseRedirect('/results/')
+    return render(request, 'registration/login.html', {'form': form })
 
 def loginview(request):
     c = {}
