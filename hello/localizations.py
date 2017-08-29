@@ -1,12 +1,12 @@
 class Localization:
     strings_en = {
-    	'survey_link': '/en/survey',
         'survey_name': 'Survey',
         'survey_questions': ("1. What genres of computer games do you prefer?",
     	         "2. How important are computer games in your life? (on a scale of 1-10)",
     	         '3. Have you ever heard about the game "The Information Man"?',
     	         "4. What's your age?",
     	         "5. What story would you like to see in a computer game? (at least 256 characters)"),
+        'submit_button': 'Submit',
         'index_header': 'Online-Survey for App',
         'index_welcome_message': 'Welcome to our website! Please, click the button in order to proceed to the survey',
         'survey_goto_message': ' Go to Survey',
@@ -19,13 +19,13 @@ class Localization:
     }
 
     strings_ru = {
-    	'survey_link': '/ru/survey',
         'survey_name': 'Опрос',
         'survey_questions': ("1. Какие жанры компьютерных игр Вы предпочитаете?",
     	         "2. Насколько важны компьютерные игры в Вашей жизни? (оцените от 1 до 10)",
     	         '3. Слышали ли Вы когда-нибудь об игре "The Information Man"?',
     	         "4. Сколько Вам лет?",
     	         "5. Какой сюжет Вы хотели бы увидеть в компьютерной игре? (как минимум 256 символов)"),
+        'submit_button': 'Отправить',
         'index_header': 'Онлайн-опрос для приложения',
         'index_welcome_message': 'Добро пожаловать на наш сайт! Пожалуйста, нажми на кнопку, чтобы перейти к опросу',
         'survey_goto_message': ' Перейти к опросу',

@@ -35,7 +35,7 @@ class SurveyForm(forms.Form):
                ('4','50+'),)
     question4 = forms.ChoiceField(required=True, choices=OPTIONS4, widget=forms.RadioSelect(attrs={'name': 'radios_age'}), initial='0')
 
-    question5 = forms.CharField(min_length=4, widget=forms.Textarea(attrs={'class': 'form-control', 'id': 'textarea', 'name': 'textarea'}))
+    question5 = forms.CharField(min_length=256, widget=forms.Textarea(attrs={'class': 'form-control', 'id': 'textarea', 'name': 'textarea'}))
 
 class SurveyFormRu(forms.Form):
     OPTIONS1 = (('0','Симуляторы'),
@@ -72,4 +72,4 @@ class SurveyFormRu(forms.Form):
                ('4','50+'),)
     question4 = forms.ChoiceField(required=True, choices=OPTIONS4, widget=forms.RadioSelect(attrs={'name': 'radios_age'}), initial='0')
 
-    question5 = forms.CharField(min_length=4, widget=forms.Textarea(attrs={'class': 'form-control', 'id': 'textarea', 'name': 'textarea'}))
+    question5 = forms.CharField(min_length=256, widget=forms.Textarea(attrs={'class': 'form-control', 'id': 'textarea', 'name': 'textarea'}))
