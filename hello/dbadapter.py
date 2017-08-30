@@ -26,7 +26,7 @@ class DBAdapter:
             question1 = [False for i in range(8)]
             for i in answers[0]:
                 question1[int(i)] = True
-                # self.cursor.execute('UPDATE stat_question_1 SET occurrence = occurrence + 1 WHERE choice = %s', (i))
+            
             self.cursor.execute('INSERT INTO question_1(survey_id, choice_1, choice_2, choice_3, choice_4, choice_5, choice_6, choice_7, choice_8)'
                 ' VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)', (survey_id, *question1))
             self.cursor.execute('INSERT INTO question_2(survey_id, level) VALUES(%s, %s)', (survey_id, answers[1]))
@@ -39,15 +39,19 @@ class DBAdapter:
         with self.connection:
             self.cursor.execute('SELECT * FROM question_1 ORDER BY survey_id')
             question1 = self.cursor.fetchall()
+
             self.cursor.execute('SELECT * FROM question_2 ORDER BY survey_id')
             question2 = self.cursor.fetchall()
+
             self.cursor.execute('SELECT * FROM question_3 ORDER BY survey_id')
             question3 = self.cursor.fetchall()
+
             self.cursor.execute('SELECT * FROM question_4 ORDER BY survey_id')
             question4 = self.cursor.fetchall()
+
             self.cursor.execute('SELECT * FROM question_5 ORDER BY survey_id')
             question5 = self.cursor.fetchall()
-            # self.cursor.execute('SELECT occurrence FROM stat_question_1 ORDER BY choice')
+
             self.cursor.execute('select count(choice_1) from question_1 where choice_1 union all '
                 'select count(choice_2) from question_1 where choice_2 union all '
                 'select count(choice_3) from question_1 where choice_3 union all '
@@ -57,10 +61,24 @@ class DBAdapter:
                 'select count(choice_7) from question_1 where choice_7 union all '
                 'select count(choice_8) from question_1 where choice_8')
             stat_question1 = self.cursor.fetchall()
+
             self.cursor.execute('SELECT AVG(level) FROM question_2')
             stat_question2 = self.cursor.fetchall()
+
+            self.cursor.execute('select count(*) from question_3 where choice_id = 0 union all '
+                'select count(*) from question_3 where choice_id = 1 union all '
+                'select count(*) from question_3 where choice_id = 2')
+            stat_question3 = self.cursor.fetchall()
+
+            self.cursor.execute('select count(*) from question_4 where choice_id = 0 union all '
+                'select count(*) from question_4 where choice_id = 1 union all '
+                'select count(*) from question_4 where choice_id = 2 union all '
+                'select count(*) from question_4 where choice_id = 3 union all '
+                'select count(*) from question_4 where choice_id = 4')
+            stat_question4 = self.cursor.fetchall()
+
             return { 'question1': question1, 'question2': question2, 'question3': question3, 'question4': question4, 'question5': question5,
-                'stat_question1': stat_question1, 'stat_question2': stat_question2 }
+                'stat_question1': stat_question1, 'stat_question2': stat_question2, 'stat_question3': stat_question3, 'stat_question4': stat_question4 }
 
     def get_datetime(self):
         with self.connection:

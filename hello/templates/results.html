@@ -9,6 +9,8 @@
       <h1>{{ locale.survey_results }}</h1>
       <div id="containerq1" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
       <div id="containerq2" style="min-width: 310px; max-width: 800px; height: 200px; margin: 0 auto"></div>
+      <div id="containerq3" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+      <div id="containerq4" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
       <div class="container" style="position:relative;text-align:center;">
       <div class="text-left">
       {% for r in responses %}
@@ -44,7 +46,7 @@ Highcharts.chart('containerq1', {
     yAxis: {
         min: 0,
         title: {
-            text: 'Answers',
+            text: '{{ locale.charts_question_1_yAxis }}',
             align: 'high'
         },
         labels: {
@@ -52,7 +54,7 @@ Highcharts.chart('containerq1', {
         }
     },
     tooltip: {
-        valueSuffix: ' Answers'
+        valueSuffix: ' {{ locale.charts_valueSuffix }}'
     },
     plotOptions: {
         bar: {
@@ -94,7 +96,7 @@ Highcharts.chart('containerq2', {
         text: ''
     },
     xAxis: {
-        categories: 'Importance of games',
+        categories: '{{ locale.charts_question_2_xAxis }}',
         title: {
             text: null
         }
@@ -102,16 +104,13 @@ Highcharts.chart('containerq2', {
     yAxis: {
         min: 0,
         title: {
-            text: 'Value',
+            text: '{{ locale.charts_question_2_yAxis }}',
             align: 'high'
         },
         labels: {
             overflow: 'justify'
         },
         max: 10
-    },
-    tooltip: {
-        valueSuffix: ' Answers'
     },
     plotOptions: {
         bar: {
@@ -136,9 +135,77 @@ Highcharts.chart('containerq2', {
     },
     series: [{
         name: 'Survey',
-        data: {{ graphs.q2_values|safe }}
+        data: {{ graphs.q2|safe }}
     }]
 });
     </script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    Highcharts.chart('containerq3', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: '{{ locale.survey_questions.2|safe }}'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: '{{ locale.charts_valueSuffix }}',
+            colorByPoint: true,
+            data: {{ graphs.q3|safe }}
+        }]
+    });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    Highcharts.chart('containerq4', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: '{{ locale.survey_questions.3|safe }}'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: '{{ locale.charts_valueSuffix }}',
+            colorByPoint: true,
+            data: {{ graphs.q4|safe }}
+        }]
+    });
+});
+</script>
 {% endblock %}
 

@@ -100,17 +100,15 @@ def results(request):
             responses.append(response)
 
         graphs = {}
-        q1 = []
-        for var in form.OPTIONS1:
-            q1.append(var[1])
-        graphs['q1_names'] = q1
+        graphs['q1_names'] = [var[1] for var in form.OPTIONS1]
+        graphs['q1_values'] = [var[0] for var in results['stat_question1']]
 
-        stat_q1 = []
-        for var in results['stat_question1']:
-            stat_q1.append(var[0])
-        graphs['q1_values'] = stat_q1
+        graphs['q2'] = [round(float(results['stat_question2'][0][0]), 2)]
 
-        graphs['q2_values'] = [int(results['stat_question2'][0][0])]
+        graphs['q3'] = [{'name': form.OPTIONS3[i][1], 'y': results['stat_question3'][i][0]} for i in range(len(form.OPTIONS3))]
+
+        graphs['q4'] = [{'name': form.OPTIONS4[i][1], 'y': results['stat_question4'][i][0]} for i in range(len(form.OPTIONS4))]
+
         return render(request, 'results.html', {'responses': responses, 'graphs': graphs, 'locale': locale})
     else:
         return HttpResponseRedirect('/login/')

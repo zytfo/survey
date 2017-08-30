@@ -4,7 +4,7 @@ class Localization:
         'survey_questions': ("1. What genres of computer games do you prefer?",
     	         "2. How important are computer games in your life? (on a scale of 1-10)",
     	         '3. Have you ever heard about the game "The Information Man"?',
-    	         "4. What's your age?",
+    	         "4. What is your age?",
     	         "5. What story would you like to see in a computer game? (at least 256 characters)"),
         'submit_button': 'Submit',
         'index_header': 'Online-Survey for App',
@@ -16,6 +16,10 @@ class Localization:
         'survey_results_response': 'Response',
         'home_message': 'Home',
         'lang_switch_message': 'Русский 🇷🇺',
+        'charts_question_1_yAxis': 'Answers',
+        'charts_question_2_yAxis': 'Value',
+        'charts_question_2_xAxis': 'Importance of games',
+        'charts_valueSuffix': 'Answers',
     }
 
     strings_ru = {
@@ -34,5 +38,9 @@ class Localization:
         'survey_results': 'Результаты опроса',
         'survey_results_response': 'Ответ',
         'home_message': 'Домой',
-        'lang_switch_message': 'English 🇬🇧'
+        'lang_switch_message': 'English 🇬🇧',
+        'charts_question_1_yAxis': 'Ответы',
+        'charts_question_2_yAxis': 'Значение',
+        'charts_question_2_xAxis': 'Важность игр',
+        'charts_valueSuffix': 'Ответы',
     }
