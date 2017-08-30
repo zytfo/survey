@@ -78,8 +78,10 @@ def results(request):
 
         if request.session['lang'] == 'en':
             form = SurveyForm()
+            locale = Localization.strings_en
         else:
             form = SurveyFormRu()
+            locale = Localization.strings_ru
         
         responses = []
         for i in range(len(results['question1'])):
@@ -97,10 +99,19 @@ def results(request):
             response['q5'] = results['question5'][i][1]
             responses.append(response)
 
-        if request.session['lang'] == 'en':
-            return render(request, 'results.html', {'responses': responses, 'locale': Localization.strings_en})
-        else:
-            return render(request, 'results.html', {'responses': responses, 'locale': Localization.strings_ru})
+        graphs = {}
+        q1 = []
+        for var in form.OPTIONS1:
+            q1.append(var[1])
+        graphs['q1_names'] = q1
+
+        stat_q1 = []
+        for var in results['stat_question1']:
+            stat_q1.append(var[0])
+        graphs['q1_values'] = stat_q1
+
+        graphs['q2_values'] = [int(results['stat_question2'][0][0])]
+        return render(request, 'results.html', {'responses': responses, 'graphs': graphs, 'locale': locale})
     else:
         return HttpResponseRedirect('/login/')
 

@@ -1,10 +1,14 @@
 {% extends "base.html" %}
-{% load staticfiles %}
 
 {% block content %}
+<script src="/static/highcharts/code/highcharts.js"></script>
+<script src="/static/highcharts/code/modules/exporting.js"></script>
+
 <div class="text-center">
   <div class="container">
       <h1>{{ locale.survey_results }}</h1>
+      <div id="containerq1" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+      <div id="containerq2" style="min-width: 310px; max-width: 800px; height: 200px; margin: 0 auto"></div>
       {% for r in responses %}
         <h3> {{ locale.survey_results_response }} {{ r.id }} </h3>
         <p> <b>{{ locale.survey_questions.0 }}</b> {{ r.q1 }} </p>
@@ -16,4 +20,121 @@
     </div>
 </div>
 
+<script type="text/javascript">
+Highcharts.chart('containerq1', {
+    chart: {
+        type: 'bar'
+    },
+    title: {
+        text: '{{ locale.survey_questions.0 }}'
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        categories: {{ graphs.q1_names|safe }},
+        title: {
+            text: null
+        }
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Answers',
+            align: 'high'
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' Answers'
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'top',
+        x: -40,
+        y: 80,
+        floating: true,
+        borderWidth: 1,
+        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+        shadow: true
+    },
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Survey',
+        data: {{ graphs.q1_values|safe }}
+    }]
+});
+</script>
+
+<script type="text/javascript">
+Highcharts.chart('containerq2', {
+    chart: {
+        type: 'bar'
+    },
+    title: {
+        text: '{{ locale.survey_questions.1 }}'
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        categories: 'Importance of games',
+        title: {
+            text: null
+        }
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Value',
+            align: 'high'
+        },
+        labels: {
+            overflow: 'justify'
+        },
+        max: 10
+    },
+    tooltip: {
+        valueSuffix: ' Answers'
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'top',
+        x: -40,
+        y: 80,
+        floating: true,
+        borderWidth: 1,
+        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+        shadow: true
+    },
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Survey',
+        data: {{ graphs.q2_values|safe }}
+    }]
+});
+    </script>
 {% endblock %}
+
