@@ -20,6 +20,13 @@ class Localization:
         'charts_question_2_yAxis': 'Value',
         'charts_question_2_xAxis': 'Importance of games',
         'charts_valueSuffix': 'Answers',
+        'login_headline' : 'Login',
+        'logout_button' : 'Logout',
+        'login_username' : 'username',
+        'login_password' : 'password',
+        'login_warning' : 'Warning!',
+        'login_error' : 'Sorry, that login was invalid. Please try again.',
+        'login_submit' : 'Login',
     }
 
     strings_ru = {
@@ -43,4 +50,11 @@ class Localization:
         'charts_question_2_yAxis': 'Значение',
         'charts_question_2_xAxis': 'Важность игр',
         'charts_valueSuffix': 'Ответы',
+        'login_headline' : 'Авторизация',
+        'logout_button' : 'Выйти',
+        'login_username' : 'имя пользователя',
+        'login_password' : 'пароль',
+        'login_warning' : 'Предупреждение!',
+        'login_error' : 'Извините, неправильный логин или пароль. Попробуйте снова.',
+        'login_submit' : 'Войти',
     }

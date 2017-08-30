@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.template.context_processors import csrf
 from django.shortcuts import render_to_response, redirect
 from .models import Greeting
@@ -121,22 +121,17 @@ def db(request):
 
     return render(request, 'db.html', {'greetings': greetings})
 
-def auth(request):
+def login_view(request):
     form = LoginForm(request.POST or None)
     if request.POST and form.is_valid():
         user = form.login(request)
         if user:
             login(request, user)
             return HttpResponseRedirect('/results/')
-    return render(request, 'registration/login.html', {'form': form })
-
-def loginview(request):
-    c = {}
-    c.update(csrf(request))
     if request.session['lang'] == 'en':
-        return render(request, 'login.html', c, {'locale': Localization.strings_en})
+        return render(request, 'registration/login.html', {'form' : form, 'locale': Localization.strings_en})
     else:
-        return render(request, 'login.html', c, {'locale': Localization.strings_ru})
+        return render(request, 'registration/login.html', {'form' : form, 'locale': Localization.strings_ru})
 
 def changelang(request):
     if request.session['lang'] == 'en':

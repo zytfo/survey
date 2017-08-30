@@ -29,6 +29,11 @@ DEBUG = True
 
 TEST_RUNNER = 'gettingstarted.heroku_test_runner.HerokuDiscoverRunner'
 
+TIME= 240 * 6 * 60  # 24 hours
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+SESSION_EXPIRE_AT_BROWSER_CLOSE= True
+SESSION_COOKIE_AGE = TIME    # change expired session
+SESSION_IDLE_TIMEOUT = TIME  # logout
 
 # Application definition
 

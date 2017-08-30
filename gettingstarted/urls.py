@@ -16,8 +16,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^thanks', hello.views.thanks, name='thanks'),
     url(r'^results', hello.views.results, name='results'),
-    url(r'^login/$', auth_views.LoginView.as_view()),
-    url(r'^auth/', hello.views.auth, name='auth'),
-    url(r'^changelang/', hello.views.changelang, name='auth')
- #   url(r'^logout/$', 'django.contrib.auth.views.logout')
+    url(r'^login/$', hello.views.login_view, name='login'),
+   # url(r'^auth/', hello.views.auth, name='auth'),
+    url(r'^changelang/', hello.views.changelang, name='auth'),
 ]
