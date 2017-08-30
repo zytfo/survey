@@ -9,14 +9,18 @@
       <h1>{{ locale.survey_results }}</h1>
       <div id="containerq1" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
       <div id="containerq2" style="min-width: 310px; max-width: 800px; height: 200px; margin: 0 auto"></div>
+      <div class="container" style="position:relative;text-align:center;">
+      <div class="text-left">
       {% for r in responses %}
         <h3> {{ locale.survey_results_response }} {{ r.id }} </h3>
-        <p> <b>{{ locale.survey_questions.0 }}</b> {{ r.q1 }} </p>
-        <p> <b>{{ locale.survey_questions.1 }}</b> {{ r.q2 }} </p>
-        <p> <b>{{ locale.survey_questions.2 }}</b> {{ r.q3 }} </p>
-        <p> <b>{{ locale.survey_questions.3 }}</b> {{ r.q4 }} </p>
-        <p> <b>{{ locale.survey_questions.4 }}</b> {{ r.q5 }} </p>
+        <p> <b>{{ locale.survey_questions.0 }}</b> <p>{{ r.q1 }}</p> </p>
+        <p> <b>{{ locale.survey_questions.1 }}</b> <p>{{ r.q2 }}</p> </p>
+        <p> <b>{{ locale.survey_questions.2 }}</b> <p>{{ r.q3 }}</p> </p>
+        <p> <b>{{ locale.survey_questions.3 }}</b> <p>{{ r.q4 }}</p> </p>
+        <p> <b>{{ locale.survey_questions.4 }}</b> <p>{{ r.q5 }}</p> </p>
       {% endfor %}
+    </div>
+    </div>
     </div>
 </div>
 
