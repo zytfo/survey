@@ -10,6 +10,7 @@ from .models import Greeting
 from .forms import SurveyForm, SurveyFormRu, LoginForm
 from .dbadapter import DBAdapter
 from .localizations import Localization
+import numpy as np
 
 import os
 import psycopg2
@@ -82,6 +83,9 @@ def results(request):
             form = SurveyFormRu()
         
         responses = []
+        # test
+        q1_stat = np.zeros((1, 8)).flatten()
+        # test
         for i in range(len(results['question1'])):
             response = {'id': results['question1'][i][0]}
             q1 = ''
@@ -96,9 +100,28 @@ def results(request):
             response['q4'] = form.OPTIONS4[results['question4'][i][1]][1]
             response['q5'] = results['question5'][i][1]
             responses.append(response)
+            # Test code
+            if response['q1'].find('Adventure') != -1:
+                q1_stat[0] = q1_stat[0] + 1
+            if response['q1'].find('Sports') != -1:
+                q1_stat[1] += 1
+            if response['q1'].find('Simulator') != -1:
+                q1_stat[2] += 1
+            if response['q1'].find('Open world') != -1:
+                q1_stat[3] += 1
+            if response['q1'].find('Racing') != -1:
+                q1_stat[4] += 1
+            if response['q1'].find('Shooter') != -1:
+                q1_stat[5] += 1
+            if response['q1'].find('Strategy') != -1:
+                q1_stat[6] += 1
+            if response['q1'].find('Platform') != -1:
+                q1_stat[7] += 1
+
+
 
         if request.session['lang'] == 'en':
-            return render(request, 'results.html', {'responses': responses, 'locale': Localization.strings_en})
+            return render(request, 'results.html', {'responses': responses, 'locale': Localization.strings_en, 'q1_stat' : q1_stat})
         else:
             return render(request, 'results.html', {'responses': responses, 'locale': Localization.strings_ru})
     else:

@@ -2,8 +2,53 @@
 {% load staticfiles %}
 
 {% block content %}
+<script>
+$(document).ready(function () {
+    // Build the chart
+    Highcharts.chart('chart_container', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Question 1 Results'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false,
+
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: 'Genres',
+            colorByPoint: true,
+            data: [
+                ['Adventure' , {{ q1_stat.0 }} ],
+                ['Sports' , {{ q1_stat.1 }}],
+                ['Simulator' , {{ q1_stat.2 }}],
+                ['Open World' , {{ q1_stat.3 }}],
+                ['Racing' , {{ q1_stat.4 }}],
+                ['Shooter' , {{ q1_stat.5 }}],
+                ['Strategy' , {{ q1_stat.6 }}],
+                ['Platform' , {{ q1_stat.7 }}],
+          ]
+        }]
+    });
+});
+</script>
 <div class="text-center">
   <div class="container">
+      <div id="chart_container" style="width:100%; height:400px;"></div>
       <h1>{{ locale.survey_results }}</h1>
       {% for r in responses %}
         <h3> {{ locale.survey_results_response }} {{ r.id }} </h3>
