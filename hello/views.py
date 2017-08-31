@@ -132,7 +132,10 @@ def results(request):
         graphs['q6_names'] = [var[1] for var in form_all['question_6_choices']]
         graphs['q6_values'] = [var[0] for var in results['stat_question6']]
 
-        graphs['q2'] = [round(float(results['stat_question2'][0][0]), 2)]
+        if not results['stat_question2'][0][0] is None:
+            graphs['q2'] = [round(float(results['stat_question2'][0][0]), 2)]
+        else:
+            graphs['q2'] = 0
 
         graphs['q3'] = [{'name': form['question_3_choices'][i][1], 'y': results['stat_question3'][i][0]} for i in range(len(form['question_3_choices']))]
 
