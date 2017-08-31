@@ -4,22 +4,56 @@
 <script src="/static/highcharts/code/highcharts.js"></script>
 <script src="/static/highcharts/code/modules/exporting.js"></script>
 
+<style type="text/css">
+.graphcontainer{
+    display: flex;
+}
+.flex-item{
+    flex-grow: 1;
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.response {
+    padding: 2px 16px;
+}
+</style>
+
 <div class="text-center">
   <div class="container">
       <h1>{{ locale.survey_results }}</h1>
-      <div id="containerq1" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
-      <div id="containerq2" style="min-width: 310px; max-width: 800px; height: 200px; margin: 0 auto"></div>
-      <div id="containerq3" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
-      <div id="containerq4" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+      <h2><a name="graphs">{{ locale.survey_results_graphs }}</a></h2>
+      <div class="graphcontainer">
+        <div class="fixed" id="containerq1" style="width: 50%; height: 400px; margin: 0 auto"></div>
+        <div class="flex-item" id="containerq2" style="width: 50%; height: 200px; margin: 0 auto"></div>
+      </div>
+      <div class="graphcontainer">
+        <div class="fixed" id="containerq3" style="width: 50%; height: 400px; margin: 0 auto"></div>
+        <div class="flex-item" id="containerq4" style="width: 50%; height: 400px; margin: 0 auto"></div>
+      </div>
       <div class="container" style="position:relative;text-align:center;">
       <div class="text-left">
+      <h2 style="text-align: center;"><a name="responses">{{ locale.survey_results_responses }}</a></h2>
       {% for r in responses %}
-        <h3> {{ locale.survey_results_response }} {{ r.id }} </h3>
-        <p> <b>{{ locale.survey_questions.0 }}</b> <p>{{ r.q1 }}</p> </p>
-        <p> <b>{{ locale.survey_questions.1 }}</b> <p>{{ r.q2 }}</p> </p>
-        <p> <b>{{ locale.survey_questions.2 }}</b> <p>{{ r.q3 }}</p> </p>
-        <p> <b>{{ locale.survey_questions.3 }}</b> <p>{{ r.q4 }}</p> </p>
-        <p> <b>{{ locale.survey_questions.4 }}</b> <p>{{ r.q5 }}</p> </p>
+        <div class="card">
+          <div class="response">
+            <h3> {{ locale.survey_results_response }} {{ r.id }} </h3>
+            <p> <b>{{ locale.survey_questions.0 }}</b> <p>{{ r.q1 }}</p> </p>
+            <p> <b>{{ locale.survey_questions.1 }}</b> <p>{{ r.q2 }}</p> </p>
+            <p> <b>{{ locale.survey_questions.2 }}</b> <p>{{ r.q3 }}</p> </p>
+            <p> <b>{{ locale.survey_questions.3 }}</b> <p>{{ r.q4 }}</p> </p>
+            <p> <b>{{ locale.survey_questions.4 }}</b> <p>{{ r.q5 }}</p> </p>
+          </div>
+        </div>
+        <br>
       {% endfor %}
     </div>
     </div>
@@ -27,6 +61,10 @@
 </div>
 
 <script type="text/javascript">
+Highcharts.setOptions({
+    colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+});
+
 Highcharts.chart('containerq1', {
     chart: {
         type: 'bar'
@@ -78,7 +116,7 @@ Highcharts.chart('containerq1', {
         enabled: false
     },
     series: [{
-        name: 'Survey',
+        name: '{{ locale.charts_series_name|safe }}',
         data: {{ graphs.q1_values|safe }}
     }]
 });
@@ -96,7 +134,7 @@ Highcharts.chart('containerq2', {
         text: ''
     },
     xAxis: {
-        categories: '{{ locale.charts_question_2_xAxis }}',
+        categories: ['{{ locale.charts_question_2_xAxis }}'],
         title: {
             text: null
         }
@@ -134,7 +172,7 @@ Highcharts.chart('containerq2', {
         enabled: false
     },
     series: [{
-        name: 'Survey',
+        name: '{{ locale.charts_series_name|safe }}',
         data: {{ graphs.q2|safe }}
     }]
 });
@@ -160,7 +198,11 @@ $(document).ready(function () {
                 allowPointSelect: true,
                 cursor: 'pointer',
                 dataLabels: {
-                    enabled: false
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
                 },
                 showInLegend: true
             }
