@@ -1,4 +1,33 @@
 class Localization:
+    survey_form = {
+    	'en': {
+	        'question_1_choices': (('0','Simulator'),
+	               ('1','Adventure'),
+	               ('2','Open world'),
+	               ('3','Platform'),
+	               ('4','Sports'),
+	               ('5','Racing'),
+	               ('6','Strategy'),
+	               ('7','Shooter'),),
+	        'question_3_choices': (('0','Yes'), ('1','No'), ('2',"I'm not sure"),),
+	    },
+	    'ru': {
+	        'question_1_choices': (('0','Симуляторы'),
+	               ('1','Приключенческие'),
+	               ('2','Открытый мир'),
+	               ('3','Платформеры'),
+	               ('4','Спортивные'),
+	               ('5','Гонки'),
+	               ('6','Стратегии'),
+	               ('7','Шутеры'),),
+	        'question_3_choices': (('0','Да'), ('1','Нет'), ('2',"Я не уверен"),),
+	    },
+        'all': {
+        	'question_2_choices': (('1','1'), ('2','2'), ('3','3'), ('4','4'), ('5','5'), ('6','6'), ('7','7'), ('8','8'), ('9','9'), ('10','10'),),
+        	'question_4_choices': (('0','<20'), ('1','21-30'), ('2','31-40'), ('3','41-50'), ('4','50+'),),
+        }
+    }
+
     strings_en = {
         'survey_name': 'Survey',
         'survey_questions': ("1. What genres of computer games do you prefer?",

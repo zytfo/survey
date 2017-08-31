@@ -18,8 +18,7 @@ import sys
 # Create your views here.
 def index(request):
     # return HttpResponse('Hello from Python!')
-    if not 'lang' in request.session:
-        request.session['lang'] = 'en'
+    first_visit(request)
     if request.session['lang'] == 'en':
         return render(request, 'index.html',
     		{'locale': Localization.strings_en})
@@ -28,6 +27,7 @@ def index(request):
     		{'locale': Localization.strings_ru})
 
 def thanks(request):
+    first_visit(request)
     if request.session['lang'] == 'en':
         return render(request, 'thanks.html',
     		{'locale': Localization.strings_en})
@@ -36,6 +36,7 @@ def thanks(request):
     		{'locale': Localization.strings_ru})
 
 def survey(request):
+    first_visit(request)
     if request.method == 'GET':
         if request.session['lang'] == 'en':
             form = SurveyForm()
@@ -71,17 +72,19 @@ def survey(request):
         	'form': form, 'locale': Localization.strings_ru}, RequestContext(request))        
 
 def results(request):
+    first_visit(request)
     if request.user.is_authenticated:
         db = DBAdapter()
         results = db.get_results()
         db.close()
 
         if request.session['lang'] == 'en':
-            form = SurveyForm()
+            form = Localization.survey_form['en']
             locale = Localization.strings_en
         else:
-            form = SurveyFormRu()
+            form = Localization.survey_form['ru']
             locale = Localization.strings_ru
+        form_all = Localization.survey_form['all']
         
         responses = []
         for i in range(len(results['question1'])):
@@ -91,23 +94,23 @@ def results(request):
                 if results['question1'][i][j + 1]:
                     if not q1 == "":
                         q1 += ", "
-                    q1 += form.OPTIONS1[j][1]
+                    q1 += form['question_1_choices'][j][1]
             response['q1'] = q1
             response['q2'] = results['question2'][i][1]
-            response['q3'] = form.OPTIONS3[results['question3'][i][1]][1]
-            response['q4'] = form.OPTIONS4[results['question4'][i][1]][1]
+            response['q3'] = form['question_3_choices'][results['question3'][i][1]][1]
+            response['q4'] = form_all['question_4_choices'][results['question4'][i][1]][1]
             response['q5'] = results['question5'][i][1]
             responses.append(response)
 
         graphs = {}
-        graphs['q1_names'] = [var[1] for var in form.OPTIONS1]
+        graphs['q1_names'] = [var[1] for var in form['question_1_choices']]
         graphs['q1_values'] = [var[0] for var in results['stat_question1']]
 
         graphs['q2'] = [round(float(results['stat_question2'][0][0]), 2)]
 
-        graphs['q3'] = [{'name': form.OPTIONS3[i][1], 'y': results['stat_question3'][i][0]} for i in range(len(form.OPTIONS3))]
+        graphs['q3'] = [{'name': form['question_3_choices'][i][1], 'y': results['stat_question3'][i][0]} for i in range(len(form['question_3_choices']))]
 
-        graphs['q4'] = [{'name': form.OPTIONS4[i][1], 'y': results['stat_question4'][i][0]} for i in range(len(form.OPTIONS4))]
+        graphs['q4'] = [{'name': form_all['question_4_choices'][i][1], 'y': results['stat_question4'][i][0]} for i in range(len(form_all['question_4_choices']))]
 
         return render(request, 'results.html', {'responses': responses, 'graphs': graphs, 'locale': locale})
     else:
@@ -122,6 +125,7 @@ def db(request):
     return render(request, 'db.html', {'greetings': greetings})
 
 def login_view(request):
+    first_visit(request)
     form = LoginForm(request.POST or None)
     if request.POST and form.is_valid():
         user = form.login(request)
@@ -140,5 +144,9 @@ def changelang(request):
     else: 
         request.session['lang'] = 'en'
         return HttpResponseRedirect(request.GET.get('url'))
+
+def first_visit(request):
+    if not 'lang' in request.session:
+        request.session['lang'] = 'en'
 
 
