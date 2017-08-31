@@ -71,14 +71,14 @@ class DBAdapter:
                 'select count(choice_8) from question_1 where choice_8')
             stat_question1 = self.cursor.fetchall()
 
-            #self.cursor.execute('select count(choice_1) from question_6 where choice_1 union all '
-            #    'select count(choice_2) from question_6 where choice_2 union all '
-            #    'select count(choice_3) from question_6 where choice_3 union all '
-            #    'select count(choice_4) from question_6 where choice_4 union all '
-            #    'select count(choice_5) from question_6 where choice_5 union all '
-            #    'select count(choice_6) from question_6 where choice_6 union all '
-            #    'select count(choice_7) from question_6 where choice_7')
-            #stat_question6 = self.cursor.fetchall()
+            self.cursor.execute('select count(choice_1) from question_6 where choice_1 union all '
+                'select count(choice_2) from question_6 where choice_2 union all '
+                'select count(choice_3) from question_6 where choice_3 union all '
+                'select count(choice_4) from question_6 where choice_4 union all '
+                'select count(choice_5) from question_6 where choice_5 union all '
+                'select count(choice_6) from question_6 where choice_6 union all '
+                'select count(choice_7) from question_6 where choice_7')
+            stat_question6 = self.cursor.fetchall()
 
             self.cursor.execute('SELECT AVG(level) FROM question_2')
             stat_question2 = self.cursor.fetchall()
@@ -96,9 +96,17 @@ class DBAdapter:
             stat_question4 = self.cursor.fetchall()
 
             return { #'question6': question6, 
-                'question1': question1, 'question2': question2, 'question3': question3, 'question4': question4, 'question5': question5,
+                'question1': question1, 
+                'question2': question2, 
+                'question3': question3, 
+                'question4': question4, 
+                'question5': question5,
                 #'stat_question6': stat_question6,
-                'stat_question1': stat_question1, 'stat_question2': stat_question2, 'stat_question3': stat_question3, 'stat_question4': stat_question4 }
+                'stat_question1': stat_question1, 
+                'stat_question2': stat_question2, 
+                'stat_question3': stat_question3, 
+                'stat_question4': stat_question4 
+            }
 
     def get_datetime(self):
         with self.connection:
