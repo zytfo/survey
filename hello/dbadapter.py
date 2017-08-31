@@ -27,13 +27,13 @@ class DBAdapter:
             for i in answers[0]:
                 question1[int(i)] = True
 
-            #question6 = [False for i in range(7)]
-            #for i in answers[5]:
+            # question6 = [False for i in range(7)]
+            # for i in answers[5]:
             #    question6[int(i)] = True
             
             self.cursor.execute('INSERT INTO question_1(survey_id, choice_1, choice_2, choice_3, choice_4, choice_5, choice_6, choice_7, choice_8)'
                 ' VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)', (survey_id, *question1))
-            #self.cursor.execute('INSERT INTO question_6(survey_id, choice_1, choice_2, choice_3, choice_4, choice_5, choice_6, choice_7)'
+            # self.cursor.execute('INSERT INTO question_6(survey_id, choice_1, choice_2, choice_3, choice_4, choice_5, choice_6, choice_7)'
             #    ' VALUES(%s, %s, %s, %s, %s, %s, %s, %s)', (survey_id, *question6))
             self.cursor.execute('INSERT INTO question_2(survey_id, level) VALUES(%s, %s)', (survey_id, answers[1]))
             self.cursor.execute('INSERT INTO question_3(survey_id, choice_id) VALUES(%s, %s)', (survey_id, answers[2]))
@@ -46,8 +46,8 @@ class DBAdapter:
             self.cursor.execute('SELECT * FROM question_1 ORDER BY survey_id')
             question1 = self.cursor.fetchall()
 
-            #self.cursor.execute('SELECT * FROM question_6 ORDER BY survey_id')
-            #question6 = self.cursor.fetchall()
+            self.cursor.execute('SELECT * FROM question_6 ORDER BY survey_id')
+            question6 = self.cursor.fetchall()
 
             self.cursor.execute('SELECT * FROM question_2 ORDER BY survey_id')
             question2 = self.cursor.fetchall()
@@ -71,14 +71,14 @@ class DBAdapter:
                 'select count(choice_8) from question_1 where choice_8')
             stat_question1 = self.cursor.fetchall()
 
-            #self.cursor.execute('select count(choice_1) from question_6 where choice_1 union all '
-            #    'select count(choice_2) from question_6 where choice_2 union all '
-            #    'select count(choice_3) from question_6 where choice_3 union all '
-            #    'select count(choice_4) from question_6 where choice_4 union all '
-            #    'select count(choice_5) from question_6 where choice_5 union all '
-            #    'select count(choice_6) from question_6 where choice_6 union all '
-            #    'select count(choice_7) from question_6 where choice_7')
-            #stat_question6 = self.cursor.fetchall()
+            self.cursor.execute('select count(choice_1) from question_6 where choice_1 union all '
+               'select count(choice_2) from question_6 where choice_2 union all '
+               'select count(choice_3) from question_6 where choice_3 union all '
+               'select count(choice_4) from question_6 where choice_4 union all '
+               'select count(choice_5) from question_6 where choice_5 union all '
+               'select count(choice_6) from question_6 where choice_6 union all '
+               'select count(choice_7) from question_6 where choice_7')
+            stat_question6 = self.cursor.fetchall()
 
             self.cursor.execute('SELECT AVG(level) FROM question_2')
             stat_question2 = self.cursor.fetchall()
@@ -97,7 +97,7 @@ class DBAdapter:
 
             return { #'question6': question6, 
                 'question1': question1, 'question2': question2, 'question3': question3, 'question4': question4, 'question5': question5,
-                #'stat_question6': stat_question6,
+                'question6': question6, 'stat_question6': stat_question6,
                 'stat_question1': stat_question1, 'stat_question2': stat_question2, 'stat_question3': stat_question3, 'stat_question4': stat_question4 }
 
     def get_datetime(self):

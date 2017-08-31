@@ -51,18 +51,18 @@ def survey(request):
  
         # If data is valid, proceeds to create a new post and redirect the user
         if form.is_valid():
+            question1 = []
             question1 = form.cleaned_data['question1']
             question2 = form.cleaned_data['question2']
             question3 = form.cleaned_data['question3']
             question4 = form.cleaned_data['question4']
             question5 = form.cleaned_data['question5']
+            question6 = []
+            # question6 = form.cleaned_data['question6']
             db = DBAdapter()
-            db.insert_answers(db.get_next_id(), question1, question2, question3, question4, question5)
+            db.insert_answers(db.get_next_id(), question1, question2, question3, question4, question5, question6)
             db.close()
-            if request.session['lang'] == 'en':
-                return HttpResponseRedirect('/thanks/')
-            else:
-                return HttpResponseRedirect('/thanks/')
+            return HttpResponseRedirect('/thanks/')
      
     if request.session['lang'] == 'en':
         return render(request, 'survey.html', {
@@ -87,6 +87,7 @@ def results(request):
         form_all = Localization.survey_form['all']
         
         responses = []
+
         for i in range(len(results['question1'])):
             response = {'id': results['question1'][i][0]}
             q1 = ''
@@ -102,9 +103,30 @@ def results(request):
             response['q5'] = results['question5'][i][1]
             responses.append(response)
 
+        responses_upd = []
+        old_resp = len(results['question1'])
+        new_resp = len(results['question6'])
+        for i in range(old_resp, old_resp + new_resp):
+            response = {'id': results['question6'][i - old_resp][0]}
+            q1 = ''
+            for j in range(len(results['question6'][i - old_resp][1:])):
+                if results['question6'][i - old_resp][j + 1]:
+                    if not q1 == "":
+                        q1 += ", "
+                    q1 += form_all['question_6_choices'][j][1]
+            response['q1'] = q1
+            response['q2'] = results['question2'][i][1]
+            response['q3'] = form['question_3_choices'][results['question3'][i][1]][1]
+            response['q4'] = form_all['question_4_choices'][results['question4'][i][1]][1]
+            response['q5'] = results['question5'][i][1]
+            responses_upd.append(response)
+
         graphs = {}
         graphs['q1_names'] = [var[1] for var in form['question_1_choices']]
         graphs['q1_values'] = [var[0] for var in results['stat_question1']]
+
+        graphs['q6_names'] = [var[1] for var in form_all['question_6_choices']]
+        graphs['q6_values'] = [var[0] for var in results['stat_question6']]
 
         graphs['q2'] = [round(float(results['stat_question2'][0][0]), 2)]
 
@@ -112,7 +134,7 @@ def results(request):
 
         graphs['q4'] = [{'name': form_all['question_4_choices'][i][1], 'y': results['stat_question4'][i][0]} for i in range(len(form_all['question_4_choices']))]
 
-        return render(request, 'results.html', {'responses': responses, 'graphs': graphs, 'locale': locale})
+        return render(request, 'results.html', {'responses': responses, 'responses_upd': responses_upd, 'graphs': graphs, 'locale': locale})
     else:
         return HttpResponseRedirect('/login/')
 

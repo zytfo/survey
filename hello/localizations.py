@@ -9,7 +9,7 @@ class Localization:
 	               ('5','Racing'),
 	               ('6','Strategy'),
 	               ('7','Shooter'),),
-	        'question_3_choices': (('0','Yes'), ('1','No'), ('2',"I'm not sure"),),
+	        'question_3_choices': (('0','Yes'), ('1','No'), ('2',"I'm not sure"),)
 	    },
 	    'ru': {
 	        'question_1_choices': (('0','Симуляторы'),
@@ -21,10 +21,12 @@ class Localization:
 	               ('6','Стратегии'),
 	               ('7','Шутеры'),),
 	        'question_3_choices': (('0','Да'), ('1','Нет'), ('2',"Я не уверен"),),
-	    },
+        },
         'all': {
         	'question_2_choices': (('1','1'), ('2','2'), ('3','3'), ('4','4'), ('5','5'), ('6','6'), ('7','7'), ('8','8'), ('9','9'), ('10','10'),),
         	'question_4_choices': (('0','<20'), ('1','21-30'), ('2','31-40'), ('3','41-50'), ('4','50+'),),
+        	'question_6_choices': (('0', 'Windows'), ('1', 'Mac OS'), ('2', 'Linux'), ('3', 'PS4'),
+        		('4', 'Xbox One'), ('5', 'iOS'), ('6', 'Android'))
         }
     }
 
@@ -34,7 +36,8 @@ class Localization:
     	         "2. How important are computer games in your life? (on a scale of 1-10)",
     	         '3. Have you ever heard about the game "The Information Man"?',
     	         "4. What is your age?",
-    	         "5. What story would you like to see in a computer game? (at least 256 characters)"),
+    	         "5. What story would you like to see in a computer game? (at least 256 characters)",
+    	         "1. On what platforms do you prefer playing games?"),
         'submit_button': 'Submit',
         'index_header': 'Online-Survey for App',
         'index_welcome_message': 'Welcome to our website! Please, click the button in order to proceed to the survey',
@@ -67,7 +70,8 @@ class Localization:
     	         "2. Насколько важны компьютерные игры в Вашей жизни? (оцените от 1 до 10)",
     	         '3. Слышали ли Вы когда-нибудь об игре "The Information Man"?',
     	         "4. Сколько Вам лет?",
-    	         "5. Какой сюжет Вы хотели бы увидеть в компьютерной игре? (как минимум 256 символов)"),
+    	         "5. Какой сюжет Вы хотели бы увидеть в компьютерной игре? (как минимум 256 символов)",
+    	         "1. На каких платформах Вы играете в игры?"),
         'submit_button': 'Отправить',
         'index_header': 'Онлайн-опрос для приложения',
         'index_welcome_message': 'Добро пожаловать на наш сайт! Пожалуйста, нажми на кнопку, чтобы перейти к опросу',
