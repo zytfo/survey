@@ -17,6 +17,6 @@ urlpatterns = [
     url(r'^thanks', hello.views.thanks, name='thanks'),
     url(r'^results', hello.views.results, name='results'),
     url(r'^login/$', hello.views.login_view, name='login'),
-   # url(r'^auth/', hello.views.auth, name='auth'),
+   	url(r'^logout/$', hello.views.logout_view, name='logout'),
     url(r'^changelang/', hello.views.changelang, name='auth'),
 ]

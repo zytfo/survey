@@ -137,6 +137,10 @@ def login_view(request):
     else:
         return render(request, 'registration/login.html', {'form' : form, 'locale': Localization.strings_ru})
 
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/login/')
+
 def changelang(request):
     if request.session['lang'] == 'en':
         request.session['lang'] = 'ru'
