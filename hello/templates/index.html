@@ -5,12 +5,19 @@
 
 <div class="jumbotron text-center">
   <div class="container">
-    <a href="/" class="lang-logo">
-      <img src="{% static 'lang-logo.png'%}">
-    </a>
     <h1>{{ locale.index_header }}</h1>
     <p>{{ locale.index_welcome_message }}</p>
     <a type="button" class="btn btn-lg btn-default" href="survey"><span class="glyphicon glyphicon-th-list"></span>{{ locale.survey_goto_message }}</a>
   </div>
+</div>
+<div class="text-center">
+<font size="4">
+<p>Made by:</p>
+</font>
+<font size="6">
+<p>Borovik Ilya</p>
+<p>Khayaliev Artur</p>
+<p>Makaev Boris</p>
+</font>
 </div>
 {% endblock %}
