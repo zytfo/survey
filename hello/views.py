@@ -51,14 +51,18 @@ def survey(request):
  
         # If data is valid, proceeds to create a new post and redirect the user
         if form.is_valid():
-            question1 = []
-            question1 = form.cleaned_data['question1']
+            if not 'question1' in form.cleaned_data:
+                question1 = []
+            else:
+                question1 = form.cleaned_data['question1']
             question2 = form.cleaned_data['question2']
             question3 = form.cleaned_data['question3']
             question4 = form.cleaned_data['question4']
             question5 = form.cleaned_data['question5']
-            question6 = []
-            # question6 = form.cleaned_data['question6']
+            if not 'question6' in form.cleaned_data:
+                question6 = []
+            else:
+                question6 = form.cleaned_data['question6']
             db = DBAdapter()
             db.insert_answers(db.get_next_id(), question1, question2, question3, question4, question5, question6)
             db.close()
